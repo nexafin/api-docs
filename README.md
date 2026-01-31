@@ -12,9 +12,7 @@ We are working to extend this public API to add more options and capabilities to
 
 ## Key features
 
-![](<.gitbook/assets/image (1) (1).png>)
-
-Right now this API it's focused on list and filter user transactions from his different connected accounts, but that just the beginning.
+Right now this API is focused on listing and filtering user transactions from connected accounts, but that's just the beginning.
 
 #### Currently working on:
 
@@ -23,5 +21,3 @@ Right now this API it's focused on list and filter user transactions from his di
 * [x] List categories
 * [x] List, edit, create and delete bank accounts
 * [x] Accounts balances
-* [ ] CryptoCurrencies portfolio
-* [ ] Stock portfolio
