@@ -4,7 +4,7 @@ description: Update the balance of a manual account at a desire moment
 
 # Bank Account Balance
 
-{% swagger method="post" path="/v1/bank-accounts/{id}/balance" baseUrl="https://monse.app" summary="Set the balance of a bank account" %}
+{% swagger method="post" path="/v1/bank-accounts/{id}/balance" baseUrl="https://app.nexafin.com" summary="Set the balance of a bank account" %}
 {% swagger-description %}
 If you don't pass the date param the balance will be stored as the current account balance.
 {% endswagger-description %}

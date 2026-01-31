@@ -5,9 +5,9 @@
 
 ## Links
 
-* [Monse Application](https://get.monse.app)
-* [GitHub](https://github.com/get-monse)
-* [Twitter](https://twitter.com/victoor)
+* [Nexafin Application](https://app.nexafin.com)
+* [GitHub](https://github.com/nexafin/api-docs)
+* [Twitter](https://x.com/nexafin)
 
 ## Reference
 

@@ -8,7 +8,7 @@ description: List, create, update or delete your bank accounts
 
 ### Endpoints
 
-{% swagger method="get" path="/v1/bank-accounts" baseUrl="https://monse.app" summary="Get a list of all your bank accounts" %}
+{% swagger method="get" path="/v1/bank-accounts" baseUrl="https://app.nexafin.com" summary="Get a list of all your bank accounts" %}
 {% swagger-description %}
 
 {% endswagger-description %}
@@ -41,7 +41,7 @@ If you want to receive lso de bank information you can add it as 'bank'.
 {% endswagger-response %}
 {% endswagger %}
 
-{% swagger method="post" path="/v1/bank-accounts" baseUrl="https://monse.app" summary="Create a new manual bank account" %}
+{% swagger method="post" path="/v1/bank-accounts" baseUrl="https://app.nexafin.com" summary="Create a new manual bank account" %}
 {% swagger-description %}
 You can create a new manual account to track your balance and transactions. The different between this and the connected accounts is that this account need to be updated manually, creating or updating the balance every some time.
 {% endswagger-description %}
@@ -67,7 +67,7 @@ Current balance in cents.
 {% endswagger-response %}
 {% endswagger %}
 
-{% swagger method="put" path="/v1/bank-accounts/{id}" baseUrl="https://monse.app" summary="Update an account" %}
+{% swagger method="put" path="/v1/bank-accounts/{id}" baseUrl="https://app.nexafin.com" summary="Update an account" %}
 {% swagger-description %}
 
 {% endswagger-description %}
@@ -89,7 +89,7 @@ New name for bank account
 {% endswagger-response %}
 {% endswagger %}
 
-{% swagger method="delete" path="/v1/bank-accounts/{id}" baseUrl="https://monse.app" summary="Delete an account" %}
+{% swagger method="delete" path="/v1/bank-accounts/{id}" baseUrl="https://app.nexafin.com" summary="Delete an account" %}
 {% swagger-description %}
 You can only delete manual accounts.
 {% endswagger-description %}

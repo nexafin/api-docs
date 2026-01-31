@@ -1,13 +1,13 @@
 ---
 description: >-
-  Start building tools using your bank accounts information with our monse
+  Start building tools using your bank accounts information with our Nexafin
   public API.
 ---
 
 # Introduction
 
 {% hint style="info" %}
-We are working to extend this public API to add more options and capabilities to it. If you plan to build something amazing and you need a desire endpoint, just [email us](mailto:hola@monse.app).
+We are working to extend this public API to add more options and capabilities to it. If you plan to build something amazing and you need a desired endpoint, just [email us](mailto:support@nexafin.com).
 {% endhint %}
 
 ## Key features

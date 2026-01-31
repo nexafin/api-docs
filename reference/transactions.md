@@ -8,7 +8,7 @@ description: Each transaction it's and income or expenses in a user bank account
 
 ### Endpoints
 
-{% swagger baseUrl="https://monse.app/v1" method="get" path="/transactions" summary="List and filter your transactions" %}
+{% swagger baseUrl="https://app.nexafin.com/v1" method="get" path="/transactions" summary="List and filter your transactions" %}
 {% swagger-description %}
 
 {% endswagger-description %}
@@ -87,10 +87,10 @@ Bearer eyJ0eXAiOiJK…abJfpQc07c\_eig-Eok
       // ...
     }
   ],
-  "first_page_url": "http://monse.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=1",
+  "first_page_url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=1",
   "from": 1,
   "last_page": 32,
-  "last_page_url": "http://monse.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=32",
+  "last_page_url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=32",
   "links": [
     {
       "url": null,
@@ -98,12 +98,12 @@ Bearer eyJ0eXAiOiJK…abJfpQc07c\_eig-Eok
       "active": false
     },
     {
-      "url": "http://monse.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=1",
+      "url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=1",
       "label": "1",
       "active": true
     },
     {
-      "url": "http://monse.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=2",
+      "url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=2",
       "label": "2",
       "active": false
     },
@@ -111,13 +111,13 @@ Bearer eyJ0eXAiOiJK…abJfpQc07c\_eig-Eok
     // ...
     
     {
-      "url": "http://monse.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=2",
+      "url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=2",
       "label": "Next &raquo;",
       "active": false
     }
   ],
-  "next_page_url": "http://monse.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=2",
-  "path": "http://monse.test/v1/transactions",
+  "next_page_url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=2",
+  "path": "http://app.nexafin.test/v1/transactions",
   "per_page": 30,
   "prev_page_url": null,
   "to": 1,
@@ -131,7 +131,7 @@ Bearer eyJ0eXAiOiJK…abJfpQc07c\_eig-Eok
 {% endswagger-response %}
 {% endswagger %}
 
-{% swagger method="post" path="/transactions" baseUrl="https://monse.app/v1" summary="Create a new transaction" %}
+{% swagger method="post" path="/transactions" baseUrl="https://app.nexafin.com/v1" summary="Create a new transaction" %}
 {% swagger-description %}
 You can only create transactions for manual accounts.
 {% endswagger-description %}
@@ -200,7 +200,7 @@ Currency code. Inherited from bank account if no value.
 {% endswagger-response %}
 {% endswagger %}
 
-{% swagger method="put" path="/transactions/{id}" baseUrl="https://monse.app/v1" summary="Update a transaction" %}
+{% swagger method="put" path="/transactions/{id}" baseUrl="https://app.nexafin.com/v1" summary="Update a transaction" %}
 {% swagger-description %}
 
 {% endswagger-description %}
@@ -234,7 +234,7 @@ New transaction notes
 {% endswagger-response %}
 {% endswagger %}
 
-{% swagger method="delete" path="/transactions/{id}" baseUrl="https://monse.app/v1" summary="Delete a transaction" %}
+{% swagger method="delete" path="/transactions/{id}" baseUrl="https://app.nexafin.com/v1" summary="Delete a transaction" %}
 {% swagger-description %}
 The transaction will be marked as deleted and this action can't be undone.
 {% endswagger-description %}

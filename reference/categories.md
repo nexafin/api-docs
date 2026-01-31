@@ -1,10 +1,10 @@
 ---
-description: Get a full list of available categories at Monse
+description: Get a full list of available categories at Nexafin
 ---
 
 # Categories
 
-{% swagger method="get" path="/transaction-categories" baseUrl="https://monse.app/v1" summary="List all categories" %}
+{% swagger method="get" path="/transaction-categories" baseUrl="https://app.nexafin.com/v1" summary="List all categories" %}
 {% swagger-description %}
 
 {% endswagger-description %}
