@@ -8,7 +8,7 @@ description: >-
 
 ## Generate a new token
 
-![Tokens panel inside settings in app.nexafin.com](.gitbook/assets/image.png)
+![Tokens panel inside settings in app.nexafin.com](.gitbook/assets/tokens.png)
 
 The user can create, remove and watch all his tokens inside the settings panel in [app.nexafin.com](https://app.nexafin.com). These tokens expire 1 year after creation date. When a token expires, you will need to create a new one.
 

@@ -4,7 +4,7 @@ description: List, create, update or delete your bank accounts
 
 # Bank Accounts
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/bank-accounts.png" alt="Bank accounts in Nexafin"><figcaption></figcaption></figure>
 
 ### Endpoints
 
