@@ -32,7 +32,19 @@ Separated by comma.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="filter[text]" type="string" %}
-Filter transaction by concept or notes.
+Filter transactions by description or merchant name.
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="filter[bank_account_id]" type="integer" %}
+Filter transactions by bank account ID.
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="filter[type]" type="string" %}
+Filter by transaction type: `income` or `expense`.
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="filter[category]" type="integer" %}
+Filter by category ID.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="base-fiat" type="string" %}
