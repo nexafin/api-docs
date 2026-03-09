@@ -3,6 +3,15 @@
 * [Public API Introduction](README.md)
 * [Generate a token](generate-a-token.md)
 
+## MCP
+
+* [Overview](mcp/README.md)
+* [Authentication](mcp/authentication.md)
+* [Quick Start](mcp/quick-start.md)
+* [Protocol](mcp/protocol.md)
+* [Tools Reference](mcp/tools.md)
+* [Error Codes](mcp/errors.md)
+
 ## Links
 
 * [Nexafin Application](https://app.nexafin.com)
