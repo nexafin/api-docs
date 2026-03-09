@@ -73,5 +73,5 @@ The assistant will call the `get_account_balances` tool and return your balances
 > Total: $185.50 on food this month.
 
 {% hint style="warning" %}
-MCP access requires an active PRO subscription. If you see a subscription error, visit [app.nexafin.com/settings/billing](https://app.nexafin.com/settings/billing) to upgrade.
+MCP access requires an active PRO subscription. If you see a subscription error, visit [app.nexafin.com](https://app.nexafin.com) to upgrade.
 {% endhint %}
