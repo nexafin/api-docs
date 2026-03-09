@@ -25,11 +25,24 @@ You will be prompted to authorize via OAuth the first time you use a Nexafin too
 
 ### Claude Desktop
 
-{% hint style="warning" %}
-Claude Desktop currently has a known issue with OAuth-protected MCP servers. If the connection fails, use Claude Code CLI (above) as a workaround.
-{% endhint %}
+You can connect Nexafin to Claude Desktop using the built-in Connectors UI or by editing the config file.
 
-Add the following to your Claude Desktop MCP configuration file:
+#### Option A: Connectors UI (recommended)
+
+1. Open Claude Desktop and go to **Settings → Connectors**
+2. Click the **+** button and select **Add custom connector**
+
+<figure><img src="images/claude-desktop-add-connector.png" alt="Claude Desktop Add custom connector menu"><figcaption></figcaption></figure>
+
+3. Enter the connector name (`Nexafin`) and URL (`https://app.nexafin.com/mcp`), then click **Add**
+
+<figure><img src="images/claude-desktop-custom-connector.png" alt="Claude Desktop custom connector form with Nexafin URL"><figcaption></figcaption></figure>
+
+4. When you first use a Nexafin tool, Claude Desktop will ask for permission
+
+<figure><img src="images/claude-desktop-tool-permission.png" alt="Claude Desktop tool permission prompt"><figcaption></figcaption></figure>
+
+#### Option B: Config file
 
 {% tabs %}
 {% tab title="macOS" %}

@@ -44,8 +44,7 @@ All errors follow the [JSON-RPC 2.0](https://www.jsonrpc.org/specification#error
 | `200` | Success |
 | `400` | Parse error or invalid request |
 | `401` | Authentication required — includes `WWW-Authenticate` header |
-| `402` | Subscription required |
-| `403` | Authorization error (account not linked or subscription inactive) |
+| `403` | Authorization error — account not linked, subscription inactive, or subscription required |
 | `404` | Method not found, or MCP is disabled |
 | `429` | Rate limit exceeded — check `Retry-After` header |
 | `500` | Internal server error |

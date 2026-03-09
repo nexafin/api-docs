@@ -24,6 +24,7 @@ MCP access requires an active **PRO subscription**. All tools are **read-only** 
 Any MCP-compatible client works with Nexafin, including:
 
 * [Claude Desktop](https://claude.ai/download)
+* [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (CLI)
 * [ChatGPT](https://chatgpt.com/)
 * Custom integrations via the MCP SDK
 

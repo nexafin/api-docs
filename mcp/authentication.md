@@ -21,7 +21,7 @@ GET https://app.nexafin.com/.well-known/oauth-protected-resource
 ```json
 {
   "resource": "https://app.nexafin.com",
-  "authorization_servers": ["https://api.workos.com"],
+  "authorization_servers": ["https://your-workos-issuer.authkit.app"],
   "scopes_supported": ["openid", "profile", "email", "offline_access"],
   "bearer_methods_supported": ["header"],
   "resource_documentation": "https://nexafin.com/docs/api"
@@ -48,12 +48,12 @@ Some MCP protocol methods do not require authentication:
 | `initialize` | No | Protocol handshake |
 | `notifications/initialized` | No | Client ready notification |
 | `ping` | No | Connection health check |
-| `tools/list` | **Yes** | List available tools |
+| `tools/list` | No | List available tools |
 | `tools/call` | **Yes** | Execute a tool |
 
 ## Error responses
 
 | Status | Meaning |
 |--------|---------|
-| `401` | Missing or invalid token. Response includes a `WWW-Authenticate` header pointing to the OAuth discovery endpoint. |
+| `401` | Missing or invalid token. Response includes a `WWW-Authenticate` header pointing to the OAuth discovery endpoint: `Bearer resource_metadata="https://app.nexafin.com/.well-known/oauth-protected-resource", scope="openid profile email offline_access"` |
 | `403` | Token is valid but your Nexafin account isn't linked or set up yet. The error message includes a link to complete setup. |
