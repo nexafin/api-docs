@@ -1,10 +1,33 @@
 ---
-description: Get started with Nexafin MCP in Claude Desktop or ChatGPT.
+description: Get started with Nexafin MCP in ChatGPT or Claude.
 ---
 
 # Quick Start
 
-## Claude Desktop
+## ChatGPT
+
+ChatGPT supports MCP servers natively. Add Nexafin as an MCP connection:
+
+1. Open ChatGPT Settings
+2. Navigate to **Connected apps** or **MCP Servers**
+3. Add a new server with URL: `https://app.nexafin.com/mcp`
+4. Authorize with your Nexafin account when prompted
+
+## Claude
+
+### Claude Code (CLI)
+
+```bash
+claude mcp add --transport http nexafin https://app.nexafin.com/mcp
+```
+
+You will be prompted to authorize via OAuth the first time you use a Nexafin tool.
+
+### Claude Desktop
+
+{% hint style="warning" %}
+Claude Desktop currently has a known issue with OAuth-protected MCP servers. If the connection fails, use Claude Code CLI (above) as a workaround.
+{% endhint %}
 
 Add the following to your Claude Desktop MCP configuration file:
 
@@ -39,15 +62,6 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 {% endtabs %}
 
 Restart Claude Desktop. You will be prompted to authorize Nexafin via OAuth the first time you use an MCP tool.
-
-## ChatGPT
-
-ChatGPT supports MCP servers natively. Add Nexafin as an MCP connection:
-
-1. Open ChatGPT Settings
-2. Navigate to **Connected apps** or **MCP Servers**
-3. Add a new server with URL: `https://app.nexafin.com/mcp`
-4. Authorize with your Nexafin account when prompted
 
 ## Your first request
 
