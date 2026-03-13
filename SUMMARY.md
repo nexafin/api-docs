@@ -15,6 +15,8 @@
 * [Overview](mcp/README.md)
 * [Authentication](mcp/authentication.md)
 * [Quick Start](mcp/quick-start.md)
+  * [Claude](mcp/quick-start.md#claude)
+  * [ChatGPT](mcp/quick-start.md#chatgpt)
 * [Protocol](mcp/protocol.md)
 * [Tools Reference](mcp/tools.md)
 * [Error Codes](mcp/errors.md)
