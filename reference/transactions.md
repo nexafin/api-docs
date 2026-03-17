@@ -1,10 +1,14 @@
 ---
-description: Each transaction it's and income or expenses in a user bank account.
+description: Each transaction is an income or expense in a user bank account.
 ---
 
 # Transactions
 
 <figure><img src="../.gitbook/assets/transactions.png" alt="Transactions list in Nexafin"><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+All API requests must include `Accept: application/json` and `Content-Type: application/json` headers. Without the `Accept` header, error responses will return HTML instead of JSON.
+{% endhint %}
 
 ### Endpoints
 
@@ -20,7 +24,7 @@ Page number.
 {% swagger-parameter in="query" name="per-page" type="integer" %}
 Number of items per page.&#x20;
 
-Max value, it's 30.
+Max value is 30.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="include" type="string" %}
@@ -52,13 +56,13 @@ In which currency do you want the transactions.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="header" name="authorization" type="string" %}
-Bearer token of the user.
+Bearer token or API key.
 
 
 
 **Example:**&#x20;
 
-Bearer eyJ0eXAiOiJK…abJfpQc07c\_eig-Eok
+Bearer nxfn\_sk\_xxxx...
 {% endswagger-parameter %}
 
 {% swagger-response status="200" description="List of transactions" %}
@@ -74,7 +78,7 @@ Bearer eyJ0eXAiOiJK…abJfpQc07c\_eig-Eok
       "type": "expense",
       "from": [],
       "to": [],
-      "concept": "Any random concept for a transaction",
+      "description": "Any random description for a transaction",
       "notes": null,
       "amount": -73640,
       "currency": "USD",
@@ -95,14 +99,14 @@ Bearer eyJ0eXAiOiJK…abJfpQc07c\_eig-Eok
         "created_at": "2022-08-14T22:13:56.000000Z",
         "updated_at": "2022-08-14T22:13:56.000000Z"
       },
-      
+
       // ...
     }
   ],
-  "first_page_url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=1",
+  "first_page_url": "https://app.nexafin.com/v1/transactions?page=1",
   "from": 1,
   "last_page": 32,
-  "last_page_url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=32",
+  "last_page_url": "https://app.nexafin.com/v1/transactions?page=32",
   "links": [
     {
       "url": null,
@@ -110,26 +114,21 @@ Bearer eyJ0eXAiOiJK…abJfpQc07c\_eig-Eok
       "active": false
     },
     {
-      "url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=1",
+      "url": "https://app.nexafin.com/v1/transactions?page=1",
       "label": "1",
       "active": true
     },
-    {
-      "url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=2",
-      "label": "2",
-      "active": false
-    },
-    
+
     // ...
-    
+
     {
-      "url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=2",
+      "url": "https://app.nexafin.com/v1/transactions?page=2",
       "label": "Next &raquo;",
       "active": false
     }
   ],
-  "next_page_url": "http://app.nexafin.test/v1/transactions?include=category%2CbankAccount%2CbankAccount.bank&per-page=1&page=2",
-  "path": "http://app.nexafin.test/v1/transactions",
+  "next_page_url": "https://app.nexafin.com/v1/transactions?page=2",
+  "path": "https://app.nexafin.com/v1/transactions",
   "per_page": 30,
   "prev_page_url": null,
   "to": 1,
@@ -143,62 +142,83 @@ Bearer eyJ0eXAiOiJK…abJfpQc07c\_eig-Eok
 {% endswagger-response %}
 {% endswagger %}
 
+{% hint style="info" %}
+**Example request**
+
+```bash
+curl -X GET "https://app.nexafin.com/v1/transactions?include=category,bankAccount&per-page=10" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Accept: application/json"
+```
+{% endhint %}
+
 {% swagger method="post" path="/transactions" baseUrl="https://app.nexafin.com/v1" summary="Create a new transaction" %}
 {% swagger-description %}
 You can only create transactions for manual accounts.
 {% endswagger-description %}
 
 {% swagger-parameter in="body" required="true" name="amount" type="Integer" %}
-In cents
+In cents. Negative for expenses, positive for income (e.g., -5000 = -$50.00).
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" required="true" name="bank_account_id" type="Integer" %}
-The ID of the bank account.
+The ID of the bank account. Must be a manual account owned by the authenticated user.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" required="true" name="booked_at" type="String" %}
-Booked at date in Y-m-d format.
+Booked at date in Y-m-d format (e.g., `2026-03-16`).
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" required="true" name="concept" type="String" %}
+{% swagger-parameter in="body" required="true" name="description" type="String" %}
 A description of the transaction.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="currency" type="String" %}
-Currency code. Inherited from bank account if no value.
+Currency code (e.g., `USD`, `EUR`). Inherited from bank account if not provided.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="notes" type="String" %}
-
+Optional notes for the transaction.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="category_id" type="Integer" %}
-
+Category ID. Use `GET /v1/transaction-categories` to list available categories.
 {% endswagger-parameter %}
 
 {% swagger-response status="201: Created" description="Transaction created" %}
 ```javascript
 {
-    'id': 9
+    "id": 9
 }
 ```
 {% endswagger-response %}
 
-{% swagger-response status="400: Bad Request" description="Missing or invalid fields" %}
+{% swagger-response status="422: Unprocessable Entity" description="Missing or invalid fields" %}
 ```javascript
 {
-    "amount": [
-        "The amount field is required."
-    ],
-    "bank_account_id": [
-        "The bank account id field is required."
-    ],
-    "booked_at": [
-        "The booked at field is required."
-    ],
-    "concept": [
-        "The concept field is required."
-    ]
+    "message": "The description field is required. (and 3 more errors)",
+    "errors": {
+        "amount": [
+            "The amount field is required."
+        ],
+        "bank_account_id": [
+            "The bank account id field is required."
+        ],
+        "booked_at": [
+            "The booked at field is required."
+        ],
+        "description": [
+            "The description field is required."
+        ]
+    }
+}
+```
+{% endswagger-response %}
+
+{% swagger-response status="400: Bad Request" description="Account is not manual" %}
+```javascript
+{
+    "message": "You can't create a transaction for a non-manual account."
 }
 ```
 {% endswagger-response %}
@@ -206,18 +226,44 @@ Currency code. Inherited from bank account if no value.
 {% swagger-response status="401: Unauthorized" description="Permission denied" %}
 ```javascript
 {
-    // Response
+    "message": "Unauthenticated."
 }
 ```
 {% endswagger-response %}
 {% endswagger %}
+
+{% hint style="info" %}
+**Example request**
+
+```bash
+curl -X POST https://app.nexafin.com/v1/transactions \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{
+    "amount": -5000,
+    "bank_account_id": 1,
+    "booked_at": "2026-03-16",
+    "description": "Monthly subscription",
+    "currency": "USD",
+    "notes": "Auto-billed",
+    "category_id": 42
+  }'
+```
+
+**Notes:**
+- `amount` is in cents (e.g., -5000 = -$50.00). Negative for expenses, positive for income.
+- `bank_account_id` must be a **manual** account you own. Use `GET /v1/bank-accounts` to find your account IDs.
+- `booked_at` format: `YYYY-MM-DD`
+- `currency` is optional — defaults to the bank account's currency.
+{% endhint %}
 
 {% swagger method="put" path="/transactions/{id}" baseUrl="https://app.nexafin.com/v1" summary="Update a transaction" %}
 {% swagger-description %}
 
 {% endswagger-description %}
 
-{% swagger-parameter in="path" type="Integer" %}
+{% swagger-parameter in="path" name="id" type="Integer" %}
 Transaction ID
 {% endswagger-parameter %}
 
@@ -251,7 +297,7 @@ New transaction notes
 The transaction will be marked as deleted and this action can't be undone.
 {% endswagger-description %}
 
-{% swagger-parameter in="query" type="Integer" %}
+{% swagger-parameter in="path" name="id" type="Integer" %}
 Transaction ID
 {% endswagger-parameter %}
 

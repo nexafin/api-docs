@@ -4,7 +4,7 @@
 
 ## Public API
 
-* [Generate a token](generate-a-token.md)
+* [Authentication](generate-a-token.md)
 * [Transactions](reference/transactions.md)
 * [Categories](reference/categories.md)
 * [Bank Accounts](reference/bank-accounts.md)
