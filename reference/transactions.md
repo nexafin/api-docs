@@ -14,7 +14,7 @@ All API requests must include `Accept: application/json` and `Content-Type: appl
 
 {% swagger baseUrl="https://app.nexafin.com/v1" method="get" path="/transactions" summary="List and filter your transactions" %}
 {% swagger-description %}
-
+Returns both `booked` and `pending` transactions. Use the `status` field in the response to distinguish between them.
 {% endswagger-description %}
 
 {% swagger-parameter in="query" name="page" type="integer" %}
