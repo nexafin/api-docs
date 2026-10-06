@@ -26,9 +26,9 @@ The MCP connector now adds up amounts in your display currency. Tool names are u
 * `get_recurring_bills`: each bill is converted before it is added to the monthly total. Each bill line still shows the bill's own currency. Each bill is now turned into a monthly amount by its billing cycle. Before, every bill was added at its full amount whatever its cycle, so totals with non-monthly bills change.
 * `get_spending_by_category`: amounts are shown in your display currency, not in `$`.
 
-When there is no current rate, the connector uses the last rate it has stored. For `get_transactions` and `get_spending_by_category`, that is the stored rate nearest to each row's booked date. It adds a line that says so, for example `CAD rate from 2026-10-04`.
+When there is no current rate, the connector uses the last rate it has stored. For `get_transactions` and `get_spending_by_category`, that is the latest stored rate on or before each row's booked date, or the earliest later one if none is earlier. It adds a line that says so, for example `CAD rate from 2026-10-04`.
 
-If no stored rate has both currencies, its amounts are left out of the total. The tool names them in a `Not included in the total` line. The tool call does not fail.
+If no stored rate has both currencies, the amounts that cannot be converted are left out of the total. The tool names them at the end of its output. The line starts with `Not included in the total` or, for bills, `Not included in the monthly total`. When `get_spending_by_category` has no total at all, the line starts with `Spending without an exchange rate to`. The tool call does not fail.
 
 Bills with an unknown billing cycle are labelled `unknown cycle` and left out of the monthly total. Before, they were added at their full amount.
 
