@@ -175,7 +175,7 @@ Totals are in your display currency. This applies to `get_account_balances`, `ge
 
 When there is no current rate for a currency, the tool uses a stored rate instead. It adds one line that names each currency and the date of the stored rate.
 
-`get_account_balances` and `get_recurring_bills` use the latest stored rate that has both currencies. `get_transactions` and `get_spending_by_category` use the stored rate nearest to each row's booked date. That is the latest one on or before the date, or the earliest later one if none is earlier.
+`get_account_balances` and `get_recurring_bills` use the latest stored rate that has both currencies. `get_transactions` and `get_spending_by_category` use the latest stored rate on or before each row's booked date, or the earliest later one if none is earlier.
 
 For `get_account_balances` and `get_recurring_bills`:
 
@@ -202,14 +202,14 @@ If no stored rate has both currencies, the amounts cannot be converted. They are
 | `get_spending_by_category` | `Not included in the total, no exchange rate to EUR: Travel (id:36): -XYZ 10.00` |
 | `get_recurring_bills` | `Not included in the monthly total, no exchange rate to EUR: Gym (id:7): -XYZ 30.00/{cycle}` |
 
-`XYZ` stands for any currency without a stored rate. Outgoing amounts print with a minus sign. `{cycle}` is the bill's billing cycle. `get_spending_by_category` shows one subtotal per category and currency, up to `top` of them, then `and N more` if there are others. If no row can be converted, it returns no total:
+`XYZ` stands for any currency without a stored rate. Outgoing amounts in `get_transactions`, `get_spending_by_category` and `get_recurring_bills` print with a minus sign. `get_account_balances` prints a negative balance as `XYZ 100.00 (negative)`. `{cycle}` is the bill's billing cycle. `get_spending_by_category` shows one subtotal per category and currency, up to `top` of them, then `and N more` if there are others. If no row can be converted, it returns no total:
 
 ```text
 Spending breakdown for 2026-01-01 to 2026-03-09: no total, no row has an exchange rate to EUR.
 Spending without an exchange rate to EUR: Travel (id:36): -XYZ 10.00
 ```
 
-The second line is the only place those amounts appear. It has the same subtotals, `top` limit and `and N more` ending as the `Not included in the total` line.
+The second line is the only place those amounts appear. It has the same subtotals, `top` limit and `and N more` ending as the `Not included in the total` line in the table row above.
 
 ### Unknown billing cycles
 
