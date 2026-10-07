@@ -20,9 +20,11 @@ claude mcp add --transport http nexafin https://app.nexafin.com/mcp
 claude mcp login nexafin
 ```
 
-3. Claude Code opens your browser. Log in to Nexafin if needed. Nexafin then shows an **Authorize application access** page explaining the requested read access and, when requested, payday write access. Select **Approve** only if you started the connection and want to grant those permissions.
+3. Claude Code opens your browser. Log in to Nexafin if needed. Nexafin then shows a general **Authorize application access** page; it does not list individual OAuth scopes. Select **Approve** only if you started the connection.
 
-4. After approval, the browser returns control to Claude Code and the connection is ready.
+4. WorkOS handles the OAuth scope consent that follows. A new connection is read-only by default. If Claude Code explicitly requests `pay-schedule:write`, grant that additional permission only if you want it to set or reset your payday.
+
+5. After approval, the browser returns control to Claude Code and the connection is ready.
 
 If no browser opens, rerun the login with `claude mcp login --no-browser nexafin`. Claude Code prints the authorization URL instead. Open it in a browser, complete authorization, and paste the redirect URL back into the terminal when prompted.
 

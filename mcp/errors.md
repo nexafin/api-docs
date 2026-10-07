@@ -44,7 +44,7 @@ All errors follow the [JSON-RPC 2.0](https://www.jsonrpc.org/specification#error
 | `200` | Success |
 | `400` | Parse error or invalid request |
 | `401` | Authentication required. Includes a `WWW-Authenticate` header. |
-| `403` | Authorization error. Account not linked, required OAuth scope missing, subscription inactive, or subscription required. |
+| `403` | Authorization error. Account not linked, required OAuth scope missing, subscription inactive, or subscription required. A missing scope includes a `WWW-Authenticate` step-up challenge naming the required scope. |
 | `404` | Method not found, or MCP is disabled |
 | `429` | Rate limit exceeded. Check the `Retry-After` header. |
 | `500` | Internal server error |

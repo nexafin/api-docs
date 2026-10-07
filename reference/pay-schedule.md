@@ -56,6 +56,8 @@ Number of upcoming paydays to return. From 1 to 12; defaults to 3.
 
 `country_source` is `user`, `bank`, or `fallback`. With `fallback`, `country` is `null` and only weekends are considered. `shift_reason` is `null` when no shift occurs; otherwise its type is `holiday` or `weekend`. Weekend reasons have a `null` name.
 
+`nominal_anchor` is an array describing the unadjusted cadence. Monthly and semimonthly schedules use calendar-day anchors such as `[25]` or `["middle", "end"]`. Weekly and biweekly schedules use a nominal reference payday as an ISO date anchor, such as `["2026-12-21"]`; this date establishes the repeating 7- or 14-day interval.
+
 ## Set or change pay schedule
 
 {% swagger method="put" path="/pay-schedule" baseUrl="https://app.nexafin.com/v1" summary="Set a payday override" %}
