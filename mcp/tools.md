@@ -6,9 +6,11 @@ description: Reference for all available Nexafin MCP tools.
 
 All tools are **read-only** and never return sensitive data such as account numbers, routing numbers, or card details.
 
+Totals come out in your display currency. See [How totals are converted](#how-totals-are-converted).
+
 ## get\_account\_balances
 
-Returns bank account balances and net worth for all linked accounts.
+Returns bank account balances for all linked accounts, with a total in your display currency. Each balance is converted at the latest rate before it is added. Each account line shows the account's own currency.
 
 ### Parameters
 
@@ -41,7 +43,7 @@ Returns bank account balances and net worth for all linked accounts.
     "content": [
       {
         "type": "text",
-        "text": "Your account balances:\n• Primary Checking (id:1, checking): $8,500.00\n• Savings (id:2, savings): $25,000.00\n\nTotal net worth: $33,500.00"
+        "text": "Found 2 bank account(s) with total balance of $33,500.00:\n• Primary Checking (id:1, checking): $8,500.00\n• Savings (id:2, savings): $25,000.00"
       }
     ],
     "isError": false
@@ -54,13 +56,13 @@ Returns bank account balances and net worth for all linked accounts.
 
 ## get\_transactions
 
-Returns recent transactions with filtering and search. Defaults to the last 30 days if no date filters are provided.
+Returns recent transactions with filtering and search. Defaults to the last 30 days if no date filters are provided. The total is in your display currency, unless you pass `currency`. Each row converts at the rate for its booked date. A row with no rate stays in the list in its own currency and is left out of the total. See [Amounts left out of the total](#amounts-left-out-of-the-total).
 
 ### Parameters
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|:--------:|---------|-------------|
-| `currency` | string | No | `"USD"` | Currency for amount conversion (e.g., USD, EUR) |
+| `currency` | string | No | Your display currency | Currency for amount conversion (e.g., USD, EUR) |
 | `limit` | integer | No | `20` | Maximum transactions to return (1–20) |
 | `category_id` | integer | No | — | Filter by category ID |
 | `bank_account_id` | integer | No | — | Filter by bank account ID |
@@ -91,7 +93,21 @@ Returns recent transactions with filtering and search. Defaults to the last 30 d
 
 ## get\_recurring\_bills
 
-Returns upcoming bills, subscriptions, and recurring payments.
+Returns upcoming bills, subscriptions, and recurring payments, with an estimated monthly total in your display currency. Each bill is converted at the latest rate before it is added. Each bill line shows the bill's own currency.
+
+The monthly total uses each bill's billing cycle:
+
+| Cycle | Counted in the monthly total as |
+|-------|---------------------------------|
+| Daily | amount × 30 |
+| Weekly | amount × 4 |
+| Bi-weekly | amount × 2 |
+| Monthly | amount |
+| Quarterly | amount ÷ 3 |
+| Semi-annual | amount ÷ 6 |
+| Annually | amount ÷ 12 |
+
+A bill with no billing cycle, or an unknown one, is shown as `unknown cycle` and left out of the total.
 
 ### Parameters
 
@@ -121,7 +137,7 @@ Returns upcoming bills, subscriptions, and recurring payments.
 
 ## get\_spending\_by\_category
 
-Returns aggregated spending totals grouped by category for a date range.
+Returns aggregated spending totals grouped by category for a date range. Each row is converted at the rate for its booked date, then grouped. The category lines and the total are in your display currency. Amounts with no rate are the exception. See [Amounts left out of the total](#amounts-left-out-of-the-total).
 
 ### Parameters
 
@@ -147,4 +163,58 @@ Returns aggregated spending totals grouped by category for a date range.
   },
   "id": 1
 }
+```
+
+---
+
+## How totals are converted
+
+Totals are in your display currency. This applies to `get_account_balances`, `get_recurring_bills`, `get_spending_by_category` and `get_transactions`. For `get_transactions`, passing `currency` picks another currency.
+
+### Last known rate
+
+When there is no current rate for a currency, the tool uses a stored rate instead. It adds one line that names each currency and the date of the stored rate.
+
+`get_account_balances` and `get_recurring_bills` use the latest stored rate that has both currencies. `get_transactions` and `get_spending_by_category` use the latest stored rate on or before each row's booked date, or the earliest later one if none is earlier.
+
+For `get_account_balances` and `get_recurring_bills`:
+
+```text
+Converted at the last known rate, no current rate to EUR: CAD rate from 2026-10-04
+```
+
+For `get_transactions` and `get_spending_by_category`, which convert at each row's booked date:
+
+```text
+Converted at the last known rate, no rate to EUR for the booked date: CAD rate from 2026-10-04
+```
+
+If more than one date was used, the dates are listed after `rate from`, separated by commas. If more than one currency was used, the entries are separated by semicolons.
+
+### Amounts left out of the total
+
+If no stored rate has both currencies, the amounts cannot be converted. They are left out of the total and named at the end of the output, in their own currency. In `get_transactions`, the row also stays in the list, in its own currency. The tool call does not fail.
+
+| Tool | Line |
+|------|------|
+| `get_account_balances` | `Not included in the total, no exchange rate to EUR: Savings (id:2, savings): XYZ 100.00` |
+| `get_transactions` | `Not included in the total, no exchange rate to EUR: Cafe (id:41): -XYZ 12.50` |
+| `get_spending_by_category` | `Not included in the total, no exchange rate to EUR: Travel (id:36): -XYZ 10.00` |
+| `get_recurring_bills` | `Not included in the monthly total, no exchange rate to EUR: Gym (id:7): -XYZ 30.00/{cycle}` |
+
+`XYZ` stands for any currency without a stored rate. Outgoing amounts in `get_transactions`, `get_spending_by_category` and `get_recurring_bills` print with a minus sign. `get_account_balances` prints a negative balance as `XYZ 100.00 (negative)`. `{cycle}` is the bill's billing cycle. `get_spending_by_category` shows one subtotal per category and currency, up to `top` of them, then `and N more` if there are others. If no row can be converted, it returns no total:
+
+```text
+Spending breakdown for 2026-01-01 to 2026-03-09: no total, no row has an exchange rate to EUR.
+Spending without an exchange rate to EUR: Travel (id:36): -XYZ 10.00
+```
+
+The second line is the only place those amounts appear. It has the same subtotals, `top` limit and `and N more` ending as the `Not included in the total` line in the table row above.
+
+### Unknown billing cycles
+
+`get_recurring_bills` leaves out bills with an unknown cycle and names them:
+
+```text
+Not included in the monthly total, unknown cycle: Old Gym (id:9): -$20.00/unknown cycle
 ```

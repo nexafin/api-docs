@@ -21,6 +21,10 @@
 * [Tools Reference](mcp/tools.md)
 * [Error Codes](mcp/errors.md)
 
+## Changelog
+
+* [Changelog](changelog.md)
+
 ## Links
 
 * [Nexafin Application](https://app.nexafin.com)
