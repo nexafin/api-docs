@@ -4,6 +4,14 @@ description: Changes to the Nexafin public API and MCP connector.
 
 # Changelog
 
+## 2026-10-07
+
+### Holiday-aware paydays are available through the API and MCP
+
+The Public API adds `GET`, `PUT`, and `DELETE /v1/pay-schedule`. The MCP connector adds `get_pay_schedule` and `set_pay_schedule`. Both use the same holiday-aware schedule as Nexafin Settings and return nominal and adjusted dates, including holiday names or weekend reasons.
+
+Payday writes require a separate `pay-schedule:write` grant. Existing API keys and OAuth connections do not gain write access from read access. See [Pay Schedule](reference/pay-schedule.md) and the [MCP Tools Reference](mcp/tools.md#get_pay_schedule).
+
 ## 2026-10-06
 
 ### Conversion between two non-USD currencies is corrected

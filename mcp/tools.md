@@ -4,7 +4,7 @@ description: Reference for all available Nexafin MCP tools.
 
 # Tools Reference
 
-All tools are **read-only** and never return sensitive data such as account numbers, routing numbers, or card details.
+Five tools are read-only. `set_pay_schedule` is the only write tool and requires the separate `pay-schedule:write` OAuth scope. Tools never return sensitive data such as account numbers, routing numbers, or card details.
 
 Totals come out in your display currency. See [How totals are converted](#how-totals-are-converted).
 
@@ -164,6 +164,80 @@ Returns aggregated spending totals grouped by category for a date range. Each ro
   "id": 1
 }
 ```
+
+---
+
+## get\_pay\_schedule
+
+Returns the user's pay frequency and upcoming holiday-aware paydays. The response distinguishes the nominal recurring date from the adjusted deposit date and names the holiday or weekend that caused a shift. It uses the user country, then the schedule's bank country, then a weekends-only fallback.
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|:--------:|---------|-------------|
+| `count` | integer | No | `3` | Upcoming paydays to return (1–12) |
+
+### Example
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "get_pay_schedule",
+    "arguments": {"count": 3}
+  },
+  "id": 1
+}
+```
+
+The text content is JSON with the same `state`, `schedule`, and `upcoming` fields documented for [`GET /v1/pay-schedule`](../reference/pay-schedule.md#get-pay-schedule). When no schedule exists, it returns `state: "not_detected"`, a reason, and the Settings URL instead of an empty list.
+
+---
+
+## set\_pay\_schedule
+
+Sets or changes the same payday override used by Settings. It requires the `pay-schedule:write` OAuth scope. Automatic detection does not replace an override until it is reset.
+
+To set an override, pass:
+
+| Parameter | Type | Required | Description |
+|-----------|------|:--------:|-------------|
+| `pattern` | string | Yes | `weekly`, `biweekly`, `semimonthly`, or `monthly` |
+| `next_date` | string (date) | Yes | Next payday in `YYYY-MM-DD`; cannot be before today in the user's time zone |
+| `non_business_shift` | string | No | `before`, `on`, or `after` |
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "set_pay_schedule",
+    "arguments": {
+      "pattern": "biweekly",
+      "next_date": "2026-12-24",
+      "non_business_shift": "before"
+    }
+  },
+  "id": 1
+}
+```
+
+To remove the override and return to automatic detection, pass only `automatic`:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "set_pay_schedule",
+    "arguments": {"automatic": true}
+  },
+  "id": 1
+}
+```
+
+`automatic` cannot be combined with schedule fields. Both operations affect only the user represented by the OAuth token.
 
 ---
 

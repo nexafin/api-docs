@@ -11,6 +11,8 @@ You can create and manage API keys in the **Settings > API Keys** panel at [app.
 
 API keys use the prefix `nxfn_sk_` and expire 1 year after creation. When a key expires, create a new one from the settings panel. The full key is only shown once at creation — store it securely.
 
+Reading your pay schedule uses ordinary API access. To call `PUT /v1/pay-schedule` or `DELETE /v1/pay-schedule`, select **Allow this key to set or reset payday** when creating the key. This grants only `pay-schedule:write`; reading does not imply that permission. Existing keys without it remain read-only for pay schedules.
+
 ### Using your API key
 
 Include the key in the `Authorization` header as a Bearer token:

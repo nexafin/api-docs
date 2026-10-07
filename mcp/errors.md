@@ -32,7 +32,7 @@ All errors follow the [JSON-RPC 2.0](https://www.jsonrpc.org/specification#error
 | Code | Name | HTTP Status | Description |
 |------|------|:-----------:|-------------|
 | `-32001` | Authentication error | 401 | Missing or invalid OAuth token |
-| `-32002` | Authorization error | 403 | Token is valid but account is not linked to Nexafin |
+| `-32002` | Authorization error | 403 | Token is valid but the account is not linked, or a required scope is missing |
 | `-32003` | Tool execution error | 500 | The tool encountered an error during execution |
 | `-32004` | Rate limit exceeded | 429 | Too many requests. Check the `Retry-After` header. |
 | `-32005` | Subscription required | 403 | An active PRO subscription is required |
@@ -44,7 +44,7 @@ All errors follow the [JSON-RPC 2.0](https://www.jsonrpc.org/specification#error
 | `200` | Success |
 | `400` | Parse error or invalid request |
 | `401` | Authentication required. Includes a `WWW-Authenticate` header. |
-| `403` | Authorization error. Account not linked, subscription inactive, or subscription required. |
+| `403` | Authorization error. Account not linked, required OAuth scope missing, subscription inactive, or subscription required. |
 | `404` | Method not found, or MCP is disabled |
 | `429` | Rate limit exceeded. Check the `Retry-After` header. |
 | `500` | Internal server error |
