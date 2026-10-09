@@ -9,6 +9,7 @@
 * [Categories](reference/categories.md)
 * [Bank Accounts](reference/bank-accounts.md)
 * [Bank Account Balance](reference/bank-account-balance.md)
+* [Pay Schedule](reference/pay-schedule.md)
 
 ## MCP
 

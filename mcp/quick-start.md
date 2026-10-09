@@ -20,9 +20,11 @@ claude mcp add --transport http nexafin https://app.nexafin.com/mcp
 claude mcp login nexafin
 ```
 
-3. Claude Code opens your browser. Log in to Nexafin if needed. Nexafin then shows an **Authorize application access** page explaining that the connection can read your account balances, transactions, bills, and spending. Select **Approve** only if you started the connection.
+3. Claude Code opens your browser. Log in to Nexafin if needed. Nexafin then shows an **Authorize application access** page. A read-only request says **It cannot change your data.** If Claude Code requested `pay-schedule:write`, it says **It can change your payday settings.** Select **Approve** only if you started the connection and want the access shown.
 
-4. After approval, the browser returns control to Claude Code and the connection is ready.
+4. WorkOS handles the OAuth scope consent that follows. A new connection is read-only by default. If Claude Code explicitly requests `pay-schedule:write`, grant that additional permission only if you want it to set or reset your payday.
+
+5. After approval, the browser returns control to Claude Code and the connection is ready.
 
 If no browser opens, rerun the login with `claude mcp login --no-browser nexafin`. Claude Code prints the authorization URL instead. Open it in a browser, complete authorization, and paste the redirect URL back into the terminal when prompted.
 
@@ -48,7 +50,7 @@ You can connect Nexafin to Claude Desktop using the built-in Connectors UI or by
 
 <figure><img src="images/claude-desktop-custom-connector.png" alt="Claude Desktop custom connector form with Nexafin URL"><figcaption></figcaption></figure>
 
-4. After connecting, you can manage tool permissions. All 4 tools are read-only.
+4. After connecting, you can manage tool permissions. Five tools read data. `set_pay_schedule` also needs the separate `pay-schedule:write` OAuth scope.
 
 <figure><img src="images/claude-desktop-tool-permissions.png" alt="Claude Desktop Nexafin tool permissions"><figcaption></figcaption></figure>
 
